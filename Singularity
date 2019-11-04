@@ -14,6 +14,7 @@ export LD_LIBRARY_PATH
 export MPI_ROOT
 
 %runscript
+    exec /opt/bin/vapor
 
 %post
     # commands to be executed inside container during bootstrap
@@ -44,11 +45,13 @@ export MPI_ROOT
       bzip2 ca-certificates \
       glibc-devel libXext-devel libSM-devel libXrender-devel \
       mercurial subversion \
-      mesa-libGLU-devel.i686 \
-      mesa-libGL-devel.i686 \
+      mesa-libGLU-devel \
+      mesa-libGL-devel \
       libcanberra-gtk* \
       autoconf \
       Lmod
+
+    yum install -y glx-utils freeglut-devel
       
     yum -y install python27-python-devel python27-pip
     # Command below is installing python 3.6.3 while system version is 3.6.8

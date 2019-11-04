@@ -1,0 +1,61 @@
+BootStrap: docker
+From: nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+
+%setup
+
+
+%files
+
+%environment
+export PATH=/opt/bin/:$PATH
+
+%runscript 
+exec /opt/bin/vapor
+
+%post
+    # commands to be executed inside container during bootstrap
+    # add python and install some packages
+    apt-get update -y && apt-get upgrade -y 
+    apt install -y build-essential
+    apt-get install -y git cmake gcc binutils \
+      patch \
+      g++ bzip2 ca-certificates \
+      libglib2.0-0 libxext6 libsm6 libxrender1 \
+      mercurial subversion \
+      libcanberra-gtk* \
+      autoconf wget sed software-properties-common pciutils \
+ 
+    apt-get update
+    apt-add-repository ppa:oibaf/graphics-drivers
+    apt-get update
+    apt-get -y upgrade
+    apt-get -y dist-upgrade
+ 
+    #apt-get install -y libgl1-mesa-glx mesa-utils
+    ldconfig
+
+    mkdir -p /storage/home
+    mkdir -p /storage/work
+    mkdir -p /gpfs/scratch
+    mkdir -p /gpfs/group
+    mkdir -p /var/spool/torque
+    
+    # Make symlinks
+    ln -s `which qmake-qt5` /usr/local/bin/qmake
+    ln -s `which moc-qt5` /usr/local/bin/moc
+    ln -s `which rcc-qt5` /usr/local/bin/rcc
+    ln -s `which vim` /usr/local/bin/vi
+
+    #add-apt-repository ppa:bumblebee/stable
+    #apt-get update
+    #apt-get install virtualgl
+    #wget https://astuteinternet.dl.sourceforge.net/project/virtualgl/2.6/virtualgl_2.6_amd64.deb
+    #dpkg -i virtualgl_2.6_amd64.deb 
+
+    cd /opt
+    wget https://github.com/NCAR/VAPOR/releases/download/3.1.0/Vapor-3.1.0-Ubuntu.sh
+    bash Vapor-3.1.0-Ubuntu.sh --prefix=/opt/ --skip-license
+
+
+
+
