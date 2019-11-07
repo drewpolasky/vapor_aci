@@ -10,7 +10,7 @@ From: nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 export PATH=/opt/bin/:$PATH
 
 %runscript 
-exec /opt/bin/vapor
+exec /usr/bin/vglrun /opt/bin/vapor '$@'
 
 %post
     # commands to be executed inside container during bootstrap
