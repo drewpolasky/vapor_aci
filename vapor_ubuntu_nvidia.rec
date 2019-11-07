@@ -61,9 +61,9 @@ exec /usr/bin/vglrun /opt/bin/vapor '$@'
     ln -s `which rcc-qt5` /usr/local/bin/rcc
     ln -s `which vim` /usr/local/bin/vi
 
-    add-apt-repository ppa:bumblebee/stable
+    add-apt-repository ppa:bumblebee/testing
     apt-get update
-    apt-get install virtualgl
+    apt-get install -y virtualgl
     wget https://astuteinternet.dl.sourceforge.net/project/virtualgl/2.6/virtualgl_2.6_amd64.deb
     dpkg -i virtualgl_2.6_amd64.deb 
 
